@@ -16,5 +16,84 @@
     ],
     "paths": {
         "/": {}
+    },
+    "components": {
+        "schemas": {
+            "CategoryModel": {
+                "title": "Category",
+                "properties": {
+                    "name": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "جاوا اسکریپت"
+                    },
+                    "title": {
+                        "description": "\\<title\\> tag for seo",
+                        "type": "string",
+                        "example": "گروه های برنامه نویسی جاوا اسکریپت"
+                    },
+                    "slug": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "js-gropus"
+                    },
+                    "description": {
+                        "description": "most of times is null. but maybe sometimes needed for seo...",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "color": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "#ff0000"
+                    }
+                },
+                "type": "object"
+            },
+            "GroupModel": {
+                "title": "Group",
+                "properties": {
+                    "name": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "گروه برنامه نویسان لاراول در تلگرام"
+                    },
+                    "slug": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "laravel"
+                    },
+                    "image": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "laravel.jpg"
+                    },
+                    "description": {
+                        "description": ".",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "address": {
+                        "description": ".",
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://t.me/laravel"
+                    },
+                    "members": {
+                        "description": "number of group members",
+                        "type": "number",
+                        "format": "int64",
+                        "example": "2000"
+                    },
+                    "views": {
+                        "description": "page views in our site",
+                        "type": "number",
+                        "format": "int64",
+                        "example": "100"
+                    }
+                },
+                "type": "object"
+            }
+        }
     }
 }
