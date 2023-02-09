@@ -24,7 +24,7 @@ class GroupModel
      *   property="slug",
      *   type="string",
      *   example="laravel",
-     *   description=".",
+     *   description="english name of the group for url",
      * )
      */
     public $slug;

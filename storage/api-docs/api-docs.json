@@ -2,20 +2,266 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Returns Services API",
-        "description": "API documentation for Returns Service App",
-        "contact": {
-            "email": "sushil@stepfront.com"
-        },
-        "version": "1.0.0"
+        "description": "API endpoints of devgp project.",
+        "version": "v1"
     },
-    "servers": [
-        {
-            "url": "https://localhost/api/",
-            "description": "Returns App API"
-        }
-    ],
     "paths": {
-        "/": {}
+        "/groups": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "get list of the groups",
+                "operationId": "2fd561b1c25f8a824ddb5ee57d0591e4",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "slug of a category",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "e.g. js-groups"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "orderBy which column",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "e.g. members"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "array of groups returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GroupModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "create new group",
+                "operationId": "58b0a9cd406b84d7ea7c9c6f78844a39",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "path",
+                        "description": "image file",
+                        "required": false,
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreGroupRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "group details returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GroupModel"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "form validation error"
+                    }
+                }
+            }
+        },
+        "/groups/{slug}": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "get a group by slug",
+                "operationId": "cab47bed8b8e60d809836241c292e42a",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of group",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "group details returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GroupModel"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "group not found"
+                    }
+                }
+            }
+        },
+        "/groups/{slug}/related": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "get list of the related groups",
+                "operationId": "922199e164ab64856475e222db68baf3",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of group",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "array of related groups returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GroupModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "get a category by slug",
+                "operationId": "a2e8cbf260b154c77f1e8c474ddc337a",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "The slug of category",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "group details returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoryModel"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "category not found"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "search between categories (use in create-group form)",
+                "operationId": "af7044634656fb4d38bef16414e132a8",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "maximum number of results",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "array of categories returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CategoryModel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     },
     "components": {
         "schemas": {
@@ -59,7 +305,7 @@
                         "example": "گروه برنامه نویسان لاراول در تلگرام"
                     },
                     "slug": {
-                        "description": ".",
+                        "description": "english name of the group for url",
                         "type": "string",
                         "example": "laravel"
                     },
@@ -90,6 +336,32 @@
                         "type": "number",
                         "format": "int64",
                         "example": "100"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreGroupRequest": {
+                "properties": {
+                    "name": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "گروه برنامه نویسان لاراول در تلگرام"
+                    },
+                    "slug": {
+                        "description": "english name of the group for url",
+                        "type": "string",
+                        "example": "laravel"
+                    },
+                    "description": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "لورم ایپسوم متن ساختگی..."
+                    },
+                    "address": {
+                        "description": ".",
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://t.me/laravel"
                     }
                 },
                 "type": "object"
