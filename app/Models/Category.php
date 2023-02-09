@@ -15,15 +15,15 @@ class Category extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(Category::class, 'group_category');
+        return $this->belongsToMany(Group::class, 'group_category');
     }
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-                          ->generateSlugsFrom('name')
-                          ->saveSlugsTo('slug')
-                          ->usingLanguage('en')
-                          ->slugsShouldBeNoLongerThan(30);
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->usingLanguage('en')
+            ->slugsShouldBeNoLongerThan(30);
     }
 }

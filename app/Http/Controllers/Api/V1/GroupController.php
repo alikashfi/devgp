@@ -11,7 +11,7 @@ class GroupController extends Controller
 {
     public function index()
     {
-        $groups = Group::with('categories')->simplePaginate(10);
+        $groups = Group::filter()->with('categories')->simplePaginate(10);
 
         return response()->json($groups);
     }
@@ -21,35 +21,16 @@ class GroupController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
     public function show(Group $group)
     {
-        //
+        return response()->json($group->load('categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateGroupRequest  $request
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateGroupRequest $request, Group $group)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Group $group)
     {
         //
