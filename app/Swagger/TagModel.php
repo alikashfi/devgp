@@ -4,10 +4,10 @@ namespace App\Swagger;
 
 /**
  * @OA\Schema(
- *     title="Category",
+ *     title="Tag",
  * )
  */
-class CategoryModel
+class TagModel
 {
     /**
      * @OA\Property(

@@ -31,9 +31,9 @@ class Endpoints
      *         )
      *     ),
      *     @OA\Parameter(
-     *         name="category",
+     *         name="tag",
      *         in="query",
-     *         description="slug of a category",
+     *         description="slug of a tag",
      *         required=false,
      *         @OA\Schema(
      *             type="string",
@@ -174,14 +174,14 @@ class Endpoints
 
     /**
      * @OA\Get(
-     *     path="/categories/{slug}",
-     *     tags={"Categories"},
-     *     summary="get a category by slug",
+     *     path="/tags/{slug}",
+     *     tags={"Tags"},
+     *     summary="get a tag by slug",
      *
      *     @OA\Parameter(
      *         name="slug",
      *         in="path",
-     *         description="The slug of category",
+     *         description="The slug of tag",
      *         required=true,
      *         @OA\Schema(
      *             type="string",
@@ -190,23 +190,23 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="group details returned",
-     *         @OA\JsonContent(ref="#/components/schemas/CategoryModel")
+     *         @OA\JsonContent(ref="#/components/schemas/TagModel")
      *     ),
      *     @OA\Response(
      *         response="404",
-     *         description="category not found",
+     *         description="tag not found",
      *     ),
      * )
      */
-    public function singleCategory()
+    public function singleTag()
     {
     }
 
     /**
      * @OA\Get(
-     *     path="/categories",
-     *     tags={"Categories"},
-     *     summary="search between categories (use in create-group form)",
+     *     path="/tags",
+     *     tags={"Tags"},
+     *     summary="search between tags (use in create-group form)",
      *
      *     @OA\Parameter(
      *         name="search",
@@ -228,18 +228,18 @@ class Endpoints
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="array of categories returned",
+     *         description="array of tags returned",
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/CategoryModel"),
+     *                 @OA\Items(ref="#/components/schemas/TagModel"),
      *             )
      *         )
      *     ),
      * )
      */
-    public function searchCategories()
+    public function searchTags()
     {
     }
 }

@@ -13,15 +13,15 @@ class GroupController extends Controller
 {
     public function index()
     {
-        $groups = Group::filter()->with('categories')->simplePaginate(10);
+        $groups = Group::filter()->with('tags')->simplePaginate(10);
 
         return response()->json($groups);
     }
 
     public function related(Group $group)
     {
-        $groups = Group::whereHas('categories', function ($q) use ($group) {
-            $q->whereIn('categories.id', $group->categories()->pluck('categories.id')->toArray());
+        $groups = Group::whereHas('tags', function ($q) use ($group) {
+            $q->whereIn('tags.id', $group->tags()->pluck('tags.id')->toArray());
         })->whereNot('id', $group->id)->tops()->limit(min([request('limit'), 10]))->get();
 
         return response()->json($groups);
@@ -37,7 +37,7 @@ class GroupController extends Controller
         if ( ! DailyView::alreadyVisited($group))
             $group->increaseView();
 
-        return response()->json($group->load('categories'));
+        return response()->json($group->load('tags'));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)

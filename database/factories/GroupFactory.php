@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,10 +29,10 @@ class GroupFactory extends Factory
         ];
     }
 
-    public function withCategory()
+    public function withTag()
     {
         return $this->state(fn ($attributes) => [])->afterCreating(function (Group $group) {
-            Category::factory()->create()->groups()->sync($group->id);
+            Tag::factory()->create()->groups()->sync($group->id);
         });
     }
 }

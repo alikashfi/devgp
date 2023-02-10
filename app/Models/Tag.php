@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Category extends Model
+class Tag extends Model
 {
     use HasFactory, HasSlug;
 
@@ -15,7 +15,7 @@ class Category extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'group_category');
+        return $this->belongsToMany(Group::class);
     }
 
     public function getSlugOptions(): SlugOptions

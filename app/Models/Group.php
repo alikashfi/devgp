@@ -14,16 +14,16 @@ class Group extends Model
     use HasFactory, HasSlug, FilterQueryString;
 
     protected $guarded = [];
-    protected $filters = ['category', 'sort', 'search'];
+    protected $filters = ['tag', 'sort', 'search'];
 
     public function scopeTops($query)
     {
         return $query->orderBy('members')->orderBy('views');
     }
 
-    public function categories()
+    public function tags()
     {
-        return $this->belongsToMany(Category::class, 'group_category');
+        return $this->belongsToMany(Tag::class);
     }
 
     public function dailyViews()
@@ -38,13 +38,13 @@ class Group extends Model
     }
 
     /**
-     * Filter groups by "category" parameter
+     * Filter groups by "tag" parameter
      *
      * @return $this
      */
-    public function category($query, $value)
+    public function tag($query, $value)
     {
-        return Category::whereSlug($value)->first()->groups();
+        return Tag::whereSlug($value)->first()->groups();
     }
 
     /**

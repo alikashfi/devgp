@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,25 +49,25 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function groups_return_with_their_categories()
+    public function groups_return_with_their_tags()
     {
-        $categories = Category::factory()->count(2)->create();
-        Group::factory()->create()->categories()->sync($categories->pluck('id')->toArray());
+        $tags = Tag::factory()->count(2)->create();
+        Group::factory()->create()->tags()->sync($tags->pluck('id')->toArray());
 
         $response = $this->getJson(route('api.v1.groups.index'))->json();
 
-        $this->assertCount(2, $response['data'][0]['categories']);
+        $this->assertCount(2, $response['data'][0]['tags']);
     }
 
     /** @test */
-    public function filter_groups_by_category_slug()
+    public function filter_groups_by_tag_slug()
     {
-        Category::factory(2)->create();
-        Group::factory()->create()->categories()->sync($cateogryId = 1);
-        Group::factory()->create()->categories()->sync($categoryId = 2);
+        Tag::factory(2)->create();
+        Group::factory()->create()->tags()->sync($tagId = 1);
+        Group::factory()->create()->tags()->sync($tagId = 2);
 
-        tap(Category::first(), function ($category) {
-            $response = $this->getJson(route('api.v1.groups.index', ['category' => $category->slug]))->json();
+        tap(Tag::first(), function ($tag) {
+            $response = $this->getJson(route('api.v1.groups.index', ['tag' => $tag->slug]))->json();
             $this->assertCount(1, $response['data']);
         });
     }
@@ -95,9 +95,9 @@ class GroupTest extends TestCase
     /** @test */
     public function api_related_groups()
     {
-        $first = Group::factory()->withCategory()->create();
-        $second = tap(Group::factory()->create(), fn ($g) => $g->categories()->sync($first->categories()->pluck('categories.id')->toArray()));
-        $other = Group::factory()->withCategory()->create();
+        $first = Group::factory()->withtag()->create();
+        $second = tap(Group::factory()->create(), fn ($g) => $g->tags()->sync($first->tags()->pluck('tags.id')->toArray()));
+        $other = Group::factory()->withtag()->create();
 
         $response = $this->getJson(route('api.v1.groups.related', $first->slug))->json();
 

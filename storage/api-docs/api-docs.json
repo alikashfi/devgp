@@ -24,9 +24,9 @@
                         }
                     },
                     {
-                        "name": "category",
+                        "name": "tag",
                         "in": "query",
-                        "description": "slug of a category",
+                        "description": "slug of a tag",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -183,18 +183,18 @@
                 }
             }
         },
-        "/categories/{slug}": {
+        "/tags/{slug}": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Tags"
                 ],
-                "summary": "get a category by slug",
-                "operationId": "a2e8cbf260b154c77f1e8c474ddc337a",
+                "summary": "get a tag by slug",
+                "operationId": "20cd15038f54ea54358cbd4ceb966d96",
                 "parameters": [
                     {
                         "name": "slug",
                         "in": "path",
-                        "description": "The slug of category",
+                        "description": "The slug of tag",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -207,24 +207,24 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CategoryModel"
+                                    "$ref": "#/components/schemas/TagModel"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "category not found"
+                        "description": "tag not found"
                     }
                 }
             }
         },
-        "/categories": {
+        "/tags": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Tags"
                 ],
-                "summary": "search between categories (use in create-group form)",
-                "operationId": "af7044634656fb4d38bef16414e132a8",
+                "summary": "search between tags (use in create-group form)",
+                "operationId": "ad9608b8a52558850a1927426d8e712b",
                 "parameters": [
                     {
                         "name": "search",
@@ -247,13 +247,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "array of categories returned",
+                        "description": "array of tags returned",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/CategoryModel"
+                                        "$ref": "#/components/schemas/TagModel"
                                     }
                                 }
                             }
@@ -265,37 +265,6 @@
     },
     "components": {
         "schemas": {
-            "CategoryModel": {
-                "title": "Category",
-                "properties": {
-                    "name": {
-                        "description": ".",
-                        "type": "string",
-                        "example": "جاوا اسکریپت"
-                    },
-                    "title": {
-                        "description": "\\<title\\> tag for seo",
-                        "type": "string",
-                        "example": "گروه های برنامه نویسی جاوا اسکریپت"
-                    },
-                    "slug": {
-                        "description": ".",
-                        "type": "string",
-                        "example": "js-gropus"
-                    },
-                    "description": {
-                        "description": "most of times is null. but maybe sometimes needed for seo...",
-                        "type": "string",
-                        "example": ""
-                    },
-                    "color": {
-                        "description": ".",
-                        "type": "string",
-                        "example": "#ff0000"
-                    }
-                },
-                "type": "object"
-            },
             "GroupModel": {
                 "title": "Group",
                 "properties": {
@@ -362,6 +331,45 @@
                         "type": "string",
                         "format": "uri",
                         "example": "https://t.me/laravel"
+                    },
+                    "tags": {
+                        "description": "array of tag slugs",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": "['laravel', 'backend']"
+                    }
+                },
+                "type": "object"
+            },
+            "TagModel": {
+                "title": "Tag",
+                "properties": {
+                    "name": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "جاوا اسکریپت"
+                    },
+                    "title": {
+                        "description": "\\<title\\> tag for seo",
+                        "type": "string",
+                        "example": "گروه های برنامه نویسی جاوا اسکریپت"
+                    },
+                    "slug": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "js-gropus"
+                    },
+                    "description": {
+                        "description": "most of times is null. but maybe sometimes needed for seo...",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "color": {
+                        "description": ".",
+                        "type": "string",
+                        "example": "#ff0000"
                     }
                 },
                 "type": "object"

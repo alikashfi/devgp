@@ -9,6 +9,7 @@ namespace App\Swagger;
  */
 class StoreGroupRequest
 {
+
     /**
      * @OA\Property(
      *     property="name",
@@ -49,4 +50,17 @@ class StoreGroupRequest
      * )
      */
     public $address;
+
+    /**
+     * @OA\Property(
+     *   property="tags",
+     *   type="array",
+     *   @OA\Items(
+     *        type="string",
+     *   ),
+     *   example="['laravel', 'backend']",
+     *   description="array of tag slugs",
+     * )
+     */
+    public $tags;
 }

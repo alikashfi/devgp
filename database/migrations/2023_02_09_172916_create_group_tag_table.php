@@ -12,13 +12,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('group_category', function (Blueprint $table) {
+        Schema::create('group_tag', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('tag_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
 
-            $table->unique(['group_id', 'category_id']);
+            $table->unique(['group_id', 'tag_id']);
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('group_category');
+        Schema::dropIfExists('group_tag');
     }
 };
