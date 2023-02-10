@@ -22,7 +22,7 @@ class GroupFactory extends Factory
             'name'        => 'گروه ' . str_replace('.', '', fake('fa_IR')->realText(rand(20, 40))),
             'image'       => fake()->randomElement(['one', 'two', 'three']) . '.jpg',
             'description' => fake()->randomElement([null, fake('fa_IR')->realText(rand(50, 200), 2)]),
-            'address'     => fake()->url(),
+            'address'     => fake()->unique()->url(),
             'members'     => fake()->randomElement([null, rand(100, 20000)]),
             'views'       => rand(100, 10000),
             'daily_views' => rand(0, 100),

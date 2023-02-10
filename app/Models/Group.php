@@ -31,6 +31,11 @@ class Group extends Model
         return $this->hasMany(DailyView::class);
     }
 
+    public function getImageAttribute()
+    {
+        return asset('images/group/' . ($this->attributes['image'] ?? '../default.jpg'));
+    }
+
     public function increaseView()
     {
         $this->update(['views' => DB::raw('views + 1'), 'daily_views' => DB::raw('daily_views + 1')]);

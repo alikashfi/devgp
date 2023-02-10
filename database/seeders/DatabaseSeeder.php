@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Group;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $groups = Group::factory(100)->create();
+        $tags = Tag::factory(20)->create();
+        $tagIds = $tags->pluck('id')->toArray();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // 10% of groups get no tags. while others will have 1 to 5 tags.
+        $groups->each(function ($group) use ($tagIds) {
+            $group->tags()->sync(
+                fake()->optional(90)->randomElements($tagIds, rand(1, 5))
+            );
+        });
     }
 }

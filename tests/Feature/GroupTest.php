@@ -51,7 +51,7 @@ class GroupTest extends TestCase
     /** @test */
     public function groups_return_with_their_tags()
     {
-        $tags = Tag::factory()->count(2)->create();
+        $tags = Tag::factory(2)->create();
         Group::factory()->create()->tags()->sync($tags->pluck('id')->toArray());
 
         $response = $this->getJson(route('api.v1.groups.index'))->json();
@@ -95,12 +95,24 @@ class GroupTest extends TestCase
     /** @test */
     public function api_related_groups()
     {
-        $first = Group::factory()->withtag()->create();
+        $first = Group::factory()->withTag()->create();
         $second = tap(Group::factory()->create(), fn ($g) => $g->tags()->sync($first->tags()->pluck('tags.id')->toArray()));
-        $other = Group::factory()->withtag()->create();
+        $other = Group::factory()->withTag()->create();
 
         $response = $this->getJson(route('api.v1.groups.related', $first->slug))->json();
 
         $this->assertEquals([$second->name], array_column($response, 'name'));
+    }
+
+    /** @test */
+    public function it_generates_image_path()
+    {
+        $group = Group::factory()->create();
+
+        $this->assertEquals(asset("images/group/{$group->getRawOriginal('image')}"), $group->image);
+
+        $group->image = null;
+
+        $this->assertEquals(asset("images/group/../default.jpg"), $group->image);
     }
 }
