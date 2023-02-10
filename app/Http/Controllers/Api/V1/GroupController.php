@@ -16,6 +16,15 @@ class GroupController extends Controller
         return response()->json($groups);
     }
 
+    public function related(Group $group)
+    {
+        $groups = Group::whereHas('categories', function ($q) use ($group) {
+            $q->whereIn('categories.id', $group->categories()->pluck('categories.id')->toArray());
+        })->whereNot('id', $group->id)->tops()->limit(min([request('limit'), 10]))->get();
+
+        return response()->json($groups);
+    }
+
     public function store(StoreGroupRequest $request)
     {
         //

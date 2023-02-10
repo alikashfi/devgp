@@ -75,4 +75,16 @@ class GroupTest extends TestCase
         $response = $this->getJson(route('api.v1.groups.index', ['sort' => 'members,desc']))->json();
         $this->assertEquals(200, $response['data'][0]['members']);
     }
+
+    /** @test */
+    public function related_groups_api()
+    {
+        $first = Group::factory()->withCategory()->create();
+        $second = tap(Group::factory()->create(), fn ($g) => $g->categories()->sync($first->categories()->pluck('categories.id')->toArray()));
+        $other = Group::factory()->withCategory()->create();
+
+        $response = $this->getJson(route('api.v1.groups.related', $first->slug))->json();
+
+        $this->assertEquals([$second->name], array_column($response, 'name'));
+    }
 }

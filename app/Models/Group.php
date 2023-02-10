@@ -15,11 +15,10 @@ class Group extends Model
     protected $guarded = [];
     protected $filters = ['category', 'sort', 'search'];
 
-    public function getRouteKeyName()
+    public function scopeTops($query)
     {
-        return 'slug';
+        return $query->orderBy('members')->orderBy('views');
     }
-
 
     public function categories()
     {
@@ -56,5 +55,10 @@ class Group extends Model
             ->saveSlugsTo('slug')
             ->usingLanguage('en')
             ->slugsShouldBeNoLongerThan(30);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

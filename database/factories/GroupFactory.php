@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,5 +27,12 @@ class GroupFactory extends Factory
             'views'       => rand(100, 10000),
             'daily_views' => rand(0, 100),
         ];
+    }
+
+    public function withCategory()
+    {
+        return $this->state(fn ($attributes) => [])->afterCreating(function (Group $group) {
+            Category::factory()->create()->groups()->sync($group->id);
+        });
     }
 }
