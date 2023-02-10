@@ -5,6 +5,7 @@ namespace App\Swagger;
 /**
  * @OA\Schema(
  *     type="object",
+ *     required={"name", "address"},
  * )
  */
 class StoreGroupRequest
@@ -63,4 +64,14 @@ class StoreGroupRequest
      * )
      */
     public $tags;
+
+    /**
+     * @OA\Property(
+     *   property="image",
+     *   type="string",
+     *   format="byte",
+     *   description="image of group",
+     * )
+     */
+    public $image;
 }

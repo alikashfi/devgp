@@ -5,6 +5,12 @@
         "description": "API endpoints of devgp project.",
         "version": "v1"
     },
+    "servers": [
+        {
+            "url": "https://localhost:8000/api/v1",
+            "description": "Api v1"
+        }
+    ],
     "paths": {
         "/groups": {
             "get": {
@@ -164,6 +170,17 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The count of related groups",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 10,
+                            "minimum": 1
+                        }
                     }
                 ],
                 "responses": {
@@ -310,6 +327,10 @@
                 "type": "object"
             },
             "StoreGroupRequest": {
+                "required": [
+                    "name",
+                    "address"
+                ],
                 "properties": {
                     "name": {
                         "description": ".",
@@ -339,6 +360,11 @@
                             "type": "string"
                         },
                         "example": "['laravel', 'backend']"
+                    },
+                    "image": {
+                        "description": "image of group",
+                        "type": "string",
+                        "format": "byte"
                     }
                 },
                 "type": "object"

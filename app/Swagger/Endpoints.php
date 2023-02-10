@@ -12,6 +12,11 @@ use Illuminate\Http\JsonResponse;
  *      description="API endpoints of devgp project.",
  *  )
  * )
+ *
+ * @OA\Server(
+ *      url=L5_SWAGGER_CONST_HOST,
+ *      description="Api v1"
+ * )
  */
 class Endpoints
 {
@@ -153,6 +158,17 @@ class Endpoints
      *         required=true,
      *         @OA\Schema(
      *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="The count of related groups",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *             maximum=10,
+     *             minimum=1,
      *         )
      *     ),
      *     @OA\Response(
