@@ -23,6 +23,22 @@ class GroupTest extends TestCase
     }
 
     /** @test */
+    public function group_views_increases_per_visitor()
+    {
+        $group = Group::factory()->create(['views' => 0, 'daily_views' => 0]);
+
+        $this->get(route('api.v1.groups.show', $group->slug));
+        $this->get(route('api.v1.groups.show', $group->slug));
+
+        $this->assertDatabaseHas('groups', ['views' => 1, 'daily_views' => 1]);
+
+        $this->withServerVariables(['REMOTE_ADDR' => '2.2.2.2']);
+        $this->get(route('api.v1.groups.show', $group->slug));
+
+        $this->assertDatabaseHas('groups', ['views' => 2, 'daily_views' => 2]);
+    }
+
+    /** @test */
     public function api_groups_list()
     {
         Group::factory(2)->create();

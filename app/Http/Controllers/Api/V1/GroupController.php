@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use App\Models\DailyView;
 use App\Models\Group;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -32,6 +34,9 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
+        if ( ! DailyView::alreadyVisited($group))
+            $group->increaseView();
+
         return response()->json($group->load('categories'));
     }
 

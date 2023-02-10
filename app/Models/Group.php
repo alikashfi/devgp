@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
@@ -23,6 +24,17 @@ class Group extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'group_category');
+    }
+
+    public function dailyViews()
+    {
+        return $this->hasMany(DailyView::class);
+    }
+
+    public function increaseView()
+    {
+        $this->update(['views' => DB::raw('views + 1'), 'daily_views' => DB::raw('daily_views + 1')]);
+        $this->dailyViews()->create(['ip' => request()->ip()]);
     }
 
     /**
