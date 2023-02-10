@@ -13,7 +13,7 @@ class GroupTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function get_group_details()
+    public function api_group_details()
     {
         $group = Group::factory()->create();
 
@@ -23,7 +23,7 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function get_list_of_groups()
+    public function api_groups_list()
     {
         Group::factory(2)->create();
 
@@ -57,7 +57,7 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function search_groups()
+    public function filter_search_groups()
     {
         Group::factory()->create(['name' => 'foobar']);
         Group::factory()->create();
@@ -67,7 +67,7 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function sort_groups()
+    public function filter_sort_groups()
     {
         Group::factory()->create(['members' => 100]);
         Group::factory()->create(['members' => 200]);
@@ -77,7 +77,7 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function related_groups_api()
+    public function api_related_groups()
     {
         $first = Group::factory()->withCategory()->create();
         $second = tap(Group::factory()->create(), fn ($g) => $g->categories()->sync($first->categories()->pluck('categories.id')->toArray()));

@@ -26,4 +26,11 @@ class Category extends Model
             ->usingLanguage('en')
             ->slugsShouldBeNoLongerThan(30);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+
 }
