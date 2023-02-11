@@ -22,6 +22,13 @@ class Group extends Model
         return $query->orderBy('members')->orderBy('views');
     }
 
+    public function scopeRelated($query, $group)
+    {
+        return $query->whereHas('tags', function ($q) use ($group) {
+            $q->whereIn('tags.id', $group->tags()->pluck('tags.id')->toArray());
+        })->whereNot('id', $group->id)->tops()->limit(min([request('limit'), 10]));
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -43,11 +50,7 @@ class Group extends Model
         $this->dailyViews()->create(['ip' => request()->ip()]);
     }
 
-    /**
-     * Filter groups by "tag" parameter
-     *
-     * @return $this
-     */
+    // Filter groups by "tag" url parameter
     public function tag($query, $value)
     {
         $values = explode(',', $value);
@@ -57,11 +60,7 @@ class Group extends Model
         });
     }
 
-    /**
-     * Filter groups by "search" parameter
-     *
-     * @return $this
-     */
+    // Filter groups by "search" url parameter
     public function search($query, $value)
     {
         return $query->where('name', 'LIKE', "%$value%")

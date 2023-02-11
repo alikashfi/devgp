@@ -47,7 +47,7 @@ class Endpoints
      *     @OA\Parameter(
      *         name="sort",
      *         in="query",
-     *         description="order by which column(members-views-daily_views) e.g. <b>views,desc</b>",
+     *         description="order by which column(members-views-daily_views) e.g. views,desc",
      *         required=false,
      *         @OA\Schema(
      *             type="string",

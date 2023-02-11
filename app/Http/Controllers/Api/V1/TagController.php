@@ -9,14 +9,10 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $tags = Tag::filter()->limit((int) (request('limit') ?? 10))->get();
+        return response()->json($tags);
     }
 
     /**

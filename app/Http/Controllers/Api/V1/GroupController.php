@@ -14,16 +14,12 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::filter()->with('tags')->simplePaginate(10);
-
         return response()->json($groups);
     }
 
     public function related(Group $group)
     {
-        $groups = Group::whereHas('tags', function ($q) use ($group) {
-            $q->whereIn('tags.id', $group->tags()->pluck('tags.id')->toArray());
-        })->whereNot('id', $group->id)->tops()->limit(min([request('limit'), 10]))->get();
-
+        $groups = Group::related($group)->with('tags')->get();
         return response()->json($groups);
     }
 

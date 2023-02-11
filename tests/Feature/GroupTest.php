@@ -78,7 +78,7 @@ class GroupTest extends TestCase
         Group::factory()->create(['name' => 'foobar']);
         Group::factory()->create();
 
-        $response = $this->getJson(route('api.v1.groups.index', ['search' => 'foobar']))->json();
+        $response = $this->getJson(route('api.v1.groups.index', ['search' => 'foo']))->json();
         $this->assertCount(1, $response['data']);
     }
 

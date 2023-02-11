@@ -20,4 +20,25 @@ class TagTest extends TestCase
 
         $this->assertEquals($tag->name, $response['name']);
     }
+
+    /** @test */
+    public function api_get_tags()
+    {
+        Tag::factory(2)->create();
+
+        $response = $this->getJson(route('api.v1.tags.index'))->json();
+
+        $this->assertCount(2, $response);
+    }
+
+    /** @test */
+    public function api_search_tags()
+    {
+        Tag::factory()->create(['name' => 'foobar']);
+        Tag::factory()->create();
+
+        $response = $this->getJson(route('api.v1.tags.index', ['search' => 'foo']))->json();
+
+        $this->assertCount(1, $response);
+    }
 }
