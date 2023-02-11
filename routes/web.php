@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/seed', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed');
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+        '--force' => true,
+        '--seed' => true,
+    ]);
     dump('done');
 });
