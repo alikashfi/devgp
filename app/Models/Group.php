@@ -15,6 +15,7 @@ class Group extends Model
 
     protected $guarded = [];
     protected $filters = ['tag', 'sort', 'search'];
+    protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at'];
 
     public function scopeTops($query)
     {
@@ -49,7 +50,11 @@ class Group extends Model
      */
     public function tag($query, $value)
     {
-        return Tag::whereSlug($value)->first()->groups();
+        $values = explode(',', $value);
+
+        return $query->whereHas('tags', function ($q) use ($values) {
+            $q->whereIn('tags.slug', $values);
+        });
     }
 
     /**

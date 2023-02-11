@@ -33,7 +33,7 @@ class GroupModel
      * @OA\Property(
      *   property="image",
      *   type="string",
-     *   example="laravel.jpg",
+     *   example="https://site.com/full/path/to/laravel.jpg",
      *   description=".",
      * )
      */

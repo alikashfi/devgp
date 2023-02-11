@@ -64,14 +64,4 @@ class StoreGroupRequest
      * )
      */
     public $tags;
-
-    /**
-     * @OA\Property(
-     *   property="image",
-     *   type="string",
-     *   format="byte",
-     *   description="image of group",
-     * )
-     */
-    public $image;
 }

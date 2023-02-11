@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/seed', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh --seed');
+    dump('done');
+});

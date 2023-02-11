@@ -42,17 +42,15 @@ class Endpoints
      *         required=false,
      *         @OA\Schema(
      *             type="string",
-     *             example="e.g. js-groups",
      *         )
      *     ),
      *     @OA\Parameter(
      *         name="sort",
      *         in="query",
-     *         description="orderBy which column",
+     *         description="order by which column(members-views-daily_views) e.g. <b>views,desc</b>",
      *         required=false,
      *         @OA\Schema(
      *             type="string",
-     *             example="e.g. members",
      *         )
      *     ),
      *     @OA\Parameter(
@@ -120,7 +118,7 @@ class Endpoints
      *     @OA\Parameter(
      *         name="image",
      *         in="path",
-     *         description="image file",
+     *         description="image file of the group",
      *         required=false,
      *         @OA\Schema(
      *             type="file",

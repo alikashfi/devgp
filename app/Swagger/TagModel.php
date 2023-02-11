@@ -13,7 +13,7 @@ class TagModel
      * @OA\Property(
      *   property="name",
      *   type="string",
-     *   example="جاوا اسکریپت",
+     *   example="جاوا اسکریپت or javascript",
      *   description=".",
      * )
      */
@@ -33,8 +33,8 @@ class TagModel
      * @OA\Property(
      *   property="slug",
      *   type="string",
-     *   example="js-gropus",
-     *   description=".",
+     *   example="javascript",
+     *   description="english name of the tag for url",
      * )
      */
     public $slug;
@@ -43,7 +43,7 @@ class TagModel
      * @OA\Property(
      *   property="description",
      *   type="string",
-     *   description="most of times is null. but maybe sometimes needed for seo...",
+     *   description="for top of tag page, to improve seo. most of times is null btw :))",
      *   example="",
      * )
      */

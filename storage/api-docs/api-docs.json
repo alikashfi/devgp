@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://localhost:8000/api/v1",
+            "url": "https://devgp.test/api/v1",
             "description": "Api v1"
         }
     ],
@@ -35,18 +35,16 @@
                         "description": "slug of a tag",
                         "required": false,
                         "schema": {
-                            "type": "string",
-                            "example": "e.g. js-groups"
+                            "type": "string"
                         }
                     },
                     {
                         "name": "sort",
                         "in": "query",
-                        "description": "orderBy which column",
+                        "description": "order by which column(members-views-daily_views) e.g. <b>views,desc</b>",
                         "required": false,
                         "schema": {
-                            "type": "string",
-                            "example": "e.g. members"
+                            "type": "string"
                         }
                     },
                     {
@@ -85,7 +83,7 @@
                     {
                         "name": "image",
                         "in": "path",
-                        "description": "image file",
+                        "description": "image file of the group",
                         "required": false,
                         "schema": {
                             "type": "file"
@@ -298,7 +296,7 @@
                     "image": {
                         "description": ".",
                         "type": "string",
-                        "example": "laravel.jpg"
+                        "example": "https://site.com/full/path/to/laravel.jpg"
                     },
                     "description": {
                         "description": ".",
@@ -360,11 +358,6 @@
                             "type": "string"
                         },
                         "example": "['laravel', 'backend']"
-                    },
-                    "image": {
-                        "description": "image of group",
-                        "type": "string",
-                        "format": "byte"
                     }
                 },
                 "type": "object"
@@ -375,7 +368,7 @@
                     "name": {
                         "description": ".",
                         "type": "string",
-                        "example": "جاوا اسکریپت"
+                        "example": "جاوا اسکریپت or javascript"
                     },
                     "title": {
                         "description": "\\<title\\> tag for seo",
@@ -383,12 +376,12 @@
                         "example": "گروه های برنامه نویسی جاوا اسکریپت"
                     },
                     "slug": {
-                        "description": ".",
+                        "description": "english name of the tag for url",
                         "type": "string",
-                        "example": "js-gropus"
+                        "example": "javascript"
                     },
                     "description": {
-                        "description": "most of times is null. but maybe sometimes needed for seo...",
+                        "description": "for top of tag page, to improve seo. most of times is null btw :))",
                         "type": "string",
                         "example": ""
                     },
