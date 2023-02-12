@@ -51,14 +51,14 @@ class GroupModel
 
     /**
      * @OA\Property(
-     *   property="address",
+     *   property="link",
      *   type="string",
      *   format="uri",
      *   example="https://t.me/laravel",
      *   description=".",
      * )
      */
-    public $address;
+    public $link;
 
     /**
      * @OA\Property(

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('image', 30)->nullable();
             $table->string('slug', 30)->unique();
             $table->text('description')->nullable();
-            $table->string('address', 100)->unique();
+            $table->string('link', 100)->unique();
             $table->unsignedMediumInteger('members')->nullable();
             $table->unsignedMediumInteger('views')->default(0);
             $table->unsignedSmallInteger('daily_views')->default(0);

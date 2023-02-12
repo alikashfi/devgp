@@ -22,7 +22,7 @@ class GroupFactory extends Factory
             'name'        => 'گروه ' . str_replace('.', '', fake('fa_IR')->realText(rand(20, 40))),
             'image'       => fake()->randomElement(['one', 'two', 'three']) . '.jpg',
             'description' => fake()->randomElement([null, fake('fa_IR')->realText(rand(50, 200), 2)]),
-            'address'     => fake()->unique()->url(),
+            'link'        => fake()->unique()->url(),
             'members'     => fake()->randomElement([null, rand(100, 20000)]),
             'views'       => rand(100, 10000),
             'daily_views' => rand(0, 100),
@@ -31,7 +31,7 @@ class GroupFactory extends Factory
 
     public function withTag()
     {
-        return $this->state(fn ($attributes) => [])->afterCreating(function (Group $group) {
+        return $this->state(fn($attributes) => [])->afterCreating(function (Group $group) {
             Tag::factory()->create()->groups()->sync($group->id);
         });
     }

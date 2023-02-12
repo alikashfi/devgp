@@ -66,7 +66,7 @@ class Group extends Model
         return $query->where('name', 'LIKE', "%$value%")
             ->orWhere('slug', 'LIKE', "%$value%")
             ->orWhere('description', 'LIKE', "%$value%")
-            ->orWhere('address', 'LIKE', "%$value%");
+            ->orWhere('link', 'LIKE', "%$value%");
     }
 
     public function getSlugOptions(): SlugOptions
