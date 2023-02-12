@@ -32,6 +32,16 @@ class TagTest extends TestCase
     }
 
     /** @test */
+    public function api_tags_accepts_limit()
+    {
+        Tag::factory(2)->create();
+
+        $response = $this->getJson(route('api.v1.tags.index', ['limit' => 1]))->json();
+
+        $this->assertCount(1, $response);
+    }
+
+    /** @test */
     public function api_search_tags()
     {
         Tag::factory()->create(['name' => 'foobar']);

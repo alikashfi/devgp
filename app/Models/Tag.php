@@ -13,7 +13,7 @@ class Tag extends Model
     use HasFactory, HasSlug, FilterQueryString;
 
     protected $guarded = [];
-    protected $filters = ['sort', 'search'];
+    protected $filters = ['sort', 'search', 'limit'];
 
     public function groups()
     {
@@ -25,6 +25,15 @@ class Tag extends Model
     {
         return $query->where('name', 'LIKE', "%$value%")
             ->orWhere('slug', 'LIKE', "%$value%");
+    }
+
+    // Limit tags by "limit" url parameter
+    public function limit($query, $value)
+    {
+        return $query->when(
+            is_numeric($value),
+            fn($q) => $q->limit($value)
+        );
     }
 
     public function getSlugOptions(): SlugOptions

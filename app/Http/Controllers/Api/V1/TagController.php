@@ -11,7 +11,8 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::filter()->limit((int) (request('limit') ?? 10))->get();
+        $tags = Tag::filter()->get();
+
         return response()->json($tags);
     }
 
