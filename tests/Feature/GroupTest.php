@@ -6,6 +6,8 @@ use App\Models\Tag;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class GroupTest extends TestCase
@@ -96,7 +98,7 @@ class GroupTest extends TestCase
     public function api_related_groups()
     {
         $first = Group::factory()->withTag()->create();
-        $second = tap(Group::factory()->create(), fn ($g) => $g->tags()->sync($first->tags()->pluck('tags.id')->toArray()));
+        $second = tap(Group::factory()->create(), fn($g) => $g->tags()->sync($first->tags()->pluck('tags.id')->toArray()));
         $other = Group::factory()->withTag()->create();
 
         $response = $this->getJson(route('api.v1.groups.related', $first->slug))->json();
@@ -114,5 +116,56 @@ class GroupTest extends TestCase
         $group->image = null;
 
         $this->assertEquals(asset("images/group/../default.jpg"), $group->image);
+    }
+
+    /** @test */
+    public function api_store_new_group_minimum_fields()
+    {
+        $group = [
+            "name" => 'گروه لاراول',
+            "link" => 'https://t.me/laravel',
+        ];
+
+        $this->postJson(route('api.v1.groups.store'), $group)->json();
+
+        $this->assertDatabaseHas('groups', $group);
+    }
+
+    /** @test */
+    public function api_store_new_group_with_image_and_tags()
+    {
+        Storage::fake();
+
+        $tags = Tag::factory(2)->create();
+
+        $group = [
+            "name"  => 'گروه لاراول',
+            "slug"  => 'laravel-group',
+            "link"  => 'https://t.me/laravel',
+            "tags"  => $tags->pluck('slug')->toArray(),
+            "image" => UploadedFile::fake()->image('cover.jpg'),
+        ];
+
+        $this->postJson(route('api.v1.groups.store'), $group)->assertSuccessful();
+
+        tap(Group::first(), function ($group) {
+            $this->assertDatabaseCount('groups', 1);
+            $this->assertCount(2, $group->tags);
+            Storage::assertExists("group/" . $group->getRawOriginal('image'));
+        });
+    }
+
+    /** @test */
+    public function api_store_new_group_validation_errors()
+    {
+        $group = [
+            "name"  => null,
+            "slug"  => 'فارسی',
+            "link"  => 'not-url',
+            "tags"  => 'string',
+            "image" => UploadedFile::fake()->image('cover.jpg')->size(4096),
+        ];
+
+        $this->postJson(route('api.v1.groups.store'), $group)->assertJsonValidationErrors(array_keys($group));
     }
 }

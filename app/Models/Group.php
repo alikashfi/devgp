@@ -16,6 +16,7 @@ class Group extends Model
     protected $guarded = [];
     protected $filters = ['tag', 'sort', 'search'];
     protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at'];
+    protected $appends = ['image'];
 
     public function scopeTops($query)
     {

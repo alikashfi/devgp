@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateGroupRequest;
 use App\Models\DailyView;
 use App\Models\Group;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class GroupController extends Controller
 {
@@ -25,7 +27,12 @@ class GroupController extends Controller
 
     public function store(StoreGroupRequest $request)
     {
-        //
+        $image = $this->storeImage($request);
+
+        $group = Group::create(array_merge($request->validatedExcept('tags'), ['image' => $image]));
+        $group->tags()->sync($request->tags);
+
+        return response()->json($group);
     }
 
     public function show(Group $group)
@@ -44,5 +51,33 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         //
+    }
+
+    private function storeImage($request)
+    {
+        if ( ! $request->file('image'))
+            return null;
+
+        // naming
+        $name = $this->generateName($request->slug);
+
+        // resize and convert to jpg
+        $image = Image::make($request->image)->resize(200, 200)->encode('jpg', 100);
+
+        // store
+        Storage::put("group/{$name}.jpg", $image);
+
+        return "{$name}.jpg";
+    }
+
+    private function generateName($slug)
+    {
+        $name = file_sanitize($slug);
+        $numberedName = $name;
+        $i = 2;
+        while (Storage::exists("group/{$numberedName}.jpg")) {
+            $numberedName = $name . $i++;
+        }
+        return $numberedName;
     }
 }
