@@ -34,7 +34,7 @@ class StoreGroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'slug.regex'       => 'نام انگلیسی فقط میتواند شامل حروف انگلیسی، اعداد و _ - . باشد.',
+            'slug.regex'       => ':attribute فقط میتواند شامل حروف انگلیسی، اعداد و _ - . باشد.',
         ];
     }
 }
