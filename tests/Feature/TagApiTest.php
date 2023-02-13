@@ -7,16 +7,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TagTest extends TestCase
+class TagApiTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function api_tag_details()
     {
-        $tag = Tag::factory()->create();
+        $tag = create(Tag::class);
 
-        $response = $this->getJson(route('api.v1.tags.show', $tag->slug))->json();
+        $response = $this->getJsonRoute('api.v1.tags.show', $tag->slug)->json();
 
         $this->assertEquals($tag->name, $response['name']);
     }
@@ -24,9 +24,9 @@ class TagTest extends TestCase
     /** @test */
     public function api_get_tags()
     {
-        Tag::factory(2)->create();
+        create(Tag::class, count: 2);
 
-        $response = $this->getJson(route('api.v1.tags.index'))->json();
+        $response = $this->getJsonRoute('api.v1.tags.index')->json();
 
         $this->assertCount(2, $response);
     }
@@ -34,9 +34,9 @@ class TagTest extends TestCase
     /** @test */
     public function api_tags_accepts_limit()
     {
-        Tag::factory(2)->create();
+        create(Tag::class, count: 2);
 
-        $response = $this->getJson(route('api.v1.tags.index', ['limit' => 1]))->json();
+        $response = $this->getJsonRoute('api.v1.tags.index', ['limit' => 1])->json();
 
         $this->assertCount(1, $response);
     }
@@ -44,10 +44,10 @@ class TagTest extends TestCase
     /** @test */
     public function api_search_tags()
     {
-        Tag::factory()->create(['name' => 'foobar']);
-        Tag::factory()->create();
+        create(Tag::class, ['name' => 'foobar']);
+        create(Tag::class);
 
-        $response = $this->getJson(route('api.v1.tags.index', ['search' => 'foo']))->json();
+        $response = $this->getJsonRoute('api.v1.tags.index', ['search' => 'foo'])->json();
 
         $this->assertCount(1, $response);
     }
