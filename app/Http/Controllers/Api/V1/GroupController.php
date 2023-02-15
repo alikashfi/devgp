@@ -30,9 +30,9 @@ class GroupController extends Controller
         $image = $this->storeImage($request);
 
         $group = Group::create(array_merge($request->validatedExcept('tags'), ['image' => $image]));
-        $group->tags()->sync($request->tags);
+        $request->tags && $group->tags()->sync($request->tags);
 
-        return response()->json($group);
+        return response()->json($group->load('tags'));
     }
 
     public function show(Group $group)

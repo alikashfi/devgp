@@ -115,18 +115,12 @@ class Endpoints
      *     tags={"Groups"},
      *     summary="create new group",
      *
-     *     @OA\Parameter(
-     *         name="image",
-     *         in="path",
-     *         description="image file of the group",
-     *         required=false,
-     *         @OA\Schema(
-     *             type="file",
-     *         )
-     *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/StoreGroupRequest")
+     *         @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(ref="#/components/schemas/StoreGroupRequest"),
+     *         )
      *     ),
      *     @OA\Response(
      *         response="200",

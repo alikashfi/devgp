@@ -10,7 +10,6 @@ namespace App\Swagger;
  */
 class StoreGroupRequest
 {
-
     /**
      * @OA\Property(
      *     property="name",
@@ -55,13 +54,20 @@ class StoreGroupRequest
     /**
      * @OA\Property(
      *   property="tags",
+     *   description="array of tag slugs e.g. ['slug1', 'slug2'] (don't try adding tag in swagger's &#8221;Try it out&#8221; mode, cuz I couldn't make it work in swagger😐 but it works in api...)",
      *   type="array",
-     *   @OA\Items(
-     *        type="string",
-     *   ),
-     *   example="['laravel', 'backend']",
-     *   description="array of tag slugs",
+     *   @OA\Items(type="string"),
      * )
      */
     public $tags;
+
+    /**
+     * @OA\Property(
+     *   property="image",
+     *   description="image of the group",
+     *   type="string",
+     *   format="binary"
+     * )
+     */
+    public $image;
 }
