@@ -123,8 +123,8 @@ class Endpoints
      *         )
      *     ),
      *     @OA\Response(
-     *         response="200",
-     *         description="group details returned",
+     *         response="201",
+     *         description="group created successfully and returned as response.",
      *         @OA\JsonContent(ref="#/components/schemas/GroupModel")
      *     ),
      *     @OA\Response(

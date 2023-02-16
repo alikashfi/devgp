@@ -11,17 +11,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class GroupFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition()
     {
         return [
             'name'        => 'گروه ' . str_replace('.', '', fake('fa_IR')->realText(rand(20, 40))),
             'image'       => fake()->randomElement(['one', 'two', 'three']) . '.jpg',
-            'description' => fake()->randomElement([null, fake('fa_IR')->realText(rand(50, 200), 2)]),
+            'description' => fake()->randomElement([null, fake('fa_IR')->realText(rand(50, 300), 2)]),
             'link'        => fake()->unique()->url(),
             'members'     => fake()->randomElement([null, rand(100, 20000)]),
             'views'       => rand(100, 10000),
@@ -31,7 +26,7 @@ class GroupFactory extends Factory
 
     public function withTag()
     {
-        return $this->state(fn($attributes) => [])->afterCreating(function (Group $group) {
+        return $this->afterCreating(function (Group $group) {
             Tag::factory()->create()->groups()->sync($group->id);
         });
     }

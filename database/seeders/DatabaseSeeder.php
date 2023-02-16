@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $groups = Group::factory(100)->create();
+        $comments = Comment::factory(20)->create(['group_id' => Group::first()->id]);
         $tags = Tag::factory(20)->create();
         $tagIds = $tags->pluck('id')->toArray();
 

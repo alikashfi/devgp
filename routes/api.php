@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\TagController;
 use App\Http\Controllers\Api\V1\GroupController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -13,5 +14,6 @@ Route::group(['as' => 'api.v1.', 'prefix' => 'v1'], function () {
     Route::apiResources([
         'groups' => GroupController::class,
         'tags' => TagController::class,
+        'comments' => CommentController::class,
     ]);
 });

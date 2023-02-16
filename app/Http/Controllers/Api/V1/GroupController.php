@@ -7,7 +7,6 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\DailyView;
 use App\Models\Group;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
@@ -32,7 +31,7 @@ class GroupController extends Controller
         $group = Group::create(array_merge($request->validatedExcept('tags'), ['image' => $image]));
         $request->tags && $group->tags()->sync($request->tags);
 
-        return response()->json($group->load('tags'));
+        return response()->json($group->load('tags'), 201);
     }
 
     public function show(Group $group)

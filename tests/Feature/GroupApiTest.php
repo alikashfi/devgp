@@ -113,7 +113,7 @@ class GroupApiTest extends TestCase
             "link" => 'https://t.me/laravel',
         ];
 
-        $this->postJsonRoute('api.v1.groups.store', data: $group)->json();
+        $this->postJsonRoute('api.v1.groups.store', data: $group)->assertCreated();
 
         $this->assertDatabaseHas('groups', $group);
     }
