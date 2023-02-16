@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -11,11 +12,11 @@ use Mehradsadeghi\FilterQueryString\FilterQueryString;
 
 class Group extends Model
 {
-    use HasFactory, HasSlug, FilterQueryString;
+    use HasFactory, SoftDeletes, HasSlug, FilterQueryString;
 
     protected $guarded = [];
+    protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at']; // just in case
     protected $filters = ['tag', 'sort', 'search'];
-    protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at'];
     protected $appends = ['image'];
 
     public function scopeTops($query)

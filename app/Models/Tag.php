@@ -13,6 +13,7 @@ class Tag extends Model
     use HasFactory, HasSlug, FilterQueryString;
 
     protected $guarded = [];
+    protected $hidden = ['id', 'pivot']; // just in case
     protected $filters = ['sort', 'search', 'limit'];
 
     public function groups()

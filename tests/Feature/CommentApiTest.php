@@ -31,7 +31,7 @@ class CommentApiTest extends TestCase
 
         $response = $this->getJsonRoute('api.v1.comments.index', ['group' => $group->slug])->json();
 
-        $this->assertEquals(1, $response['total']);
+        $this->assertEquals(1, $response['meta']['total']);
     }
 
     /** @test */

@@ -22,6 +22,17 @@ class TagApiTest extends TestCase
     }
 
     /** @test */
+    public function a_returned_tag_only_represents_specific_fields()
+    {
+        $tag = create(Tag::class);
+
+        $response = $this->getJsonRoute('api.v1.tags.index', $tag->slug)->json();
+
+        $this->assertArrayHasKey('name', $response[0]);
+        $this->assertArrayNotHasKey('id', $response[0]);
+    }
+
+    /** @test */
     public function api_get_tags()
     {
         create(Tag::class, count: 2);

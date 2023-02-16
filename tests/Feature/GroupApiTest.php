@@ -61,6 +61,17 @@ class GroupApiTest extends TestCase
     }
 
     /** @test */
+    public function a_returned_group_only_represents_specific_fields()
+    {
+        $group = create(Group::class);
+
+        $response = $this->getJsonRoute('api.v1.groups.index', $group->slug)->json();
+
+        $this->assertArrayHasKey('views', $response['data'][0]);
+        $this->assertArrayNotHasKey('daily_views', $response['data'][0]);
+    }
+
+    /** @test */
     public function filter_groups_by_tag_slug()
     {
         create(Tag::class, count: 2);
@@ -113,8 +124,9 @@ class GroupApiTest extends TestCase
             "link" => 'https://t.me/laravel',
         ];
 
-        $this->postJsonRoute('api.v1.groups.store', data: $group)->assertCreated();
+        $response = $this->postJsonRoute('api.v1.groups.store', data: $group)->assertCreated()->json();
 
+        $this->assertEquals($group['name'], $response['name']);
         $this->assertDatabaseHas('groups', $group);
     }
 

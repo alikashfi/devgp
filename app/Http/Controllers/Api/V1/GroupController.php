@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use App\Http\Resources\GroupResource;
 use App\Models\DailyView;
 use App\Models\Group;
 use Illuminate\Support\Facades\Storage;
@@ -14,14 +15,12 @@ class GroupController extends Controller
 {
     public function index()
     {
-        $groups = Group::filter()->with('tags')->simplePaginate(10);
-        return response()->json($groups);
+        return GroupResource::collection(Group::filter()->with('tags')->simplePaginate(10));
     }
 
     public function related(Group $group)
     {
-        $groups = Group::related($group)->with('tags')->get();
-        return response()->json($groups);
+        return GroupResource::collection(Group::related($group)->with('tags')->get());
     }
 
     public function store(StoreGroupRequest $request)
@@ -31,7 +30,9 @@ class GroupController extends Controller
         $group = Group::create(array_merge($request->validatedExcept('tags'), ['image' => $image]));
         $request->tags && $group->tags()->sync($request->tags);
 
-        return response()->json($group->load('tags'), 201);
+        return (new GroupResource($group->load('tags')))
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function show(Group $group)
@@ -39,7 +40,7 @@ class GroupController extends Controller
         if ( ! DailyView::alreadyVisited($group))
             $group->increaseView();
 
-        return response()->json($group->load('tags'));
+        return new GroupResource($group->load('tags'));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)

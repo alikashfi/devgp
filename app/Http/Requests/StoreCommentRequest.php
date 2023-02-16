@@ -22,8 +22,11 @@ class StoreCommentRequest extends FormRequest
         ];
     }
 
-    protected function passedValidation()
+    public function validated($key = null, $default = null)
     {
-        return $this->merge(['group_id' => Group::whereSlug($this->group)->first()->id]);
+        return array_merge(parent::validated(), [
+            'group_id' => Group::whereSlug($this->group)->first()->id,
+            'message' => strip_tags($this->message),
+        ]);
     }
 }

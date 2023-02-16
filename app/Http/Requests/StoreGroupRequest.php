@@ -16,11 +16,12 @@ class StoreGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => 'required|string|max:50',
-            'slug'   => 'nullable|string|max:30|regex:/^[a-zA-Z0-9\._-]{1,}$/|unique:groups,slug',
-            'link'   => 'required|max:100|url|unique:groups,link',
-            'image'  => 'nullable|image|mimes:png,jpg,jpeg,webp,gif|max:2048',
-            'tags' => 'nullable|array|max:5|exists:tags,slug',
+            'name'        => 'required|string|max:50',
+            'slug'        => 'nullable|string|max:30|regex:/^[a-zA-Z0-9\._-]{1,}$/|unique:groups,slug',
+            'description' => 'nullable|string|max:10000',
+            'link'        => 'required|max:100|url|unique:groups,link',
+            'image'       => 'nullable|image|mimes:png,jpg,jpeg,webp,gif|max:2048',
+            'tags'        => 'nullable|array|max:5|exists:tags,slug',
         ];
     }
 
@@ -30,11 +31,18 @@ class StoreGroupRequest extends FormRequest
             $this->replace(['tags' => Tag::whereIn('slug', $this->tags)->pluck('id')->toArray()]);
     }
 
+    public function validated($key = null, $default = null)
+    {
+        return array_merge(parent::validated(), [
+            'description' => strip_tags($this->description),
+        ]);
+    }
+
 
     public function messages()
     {
         return [
-            'slug.regex'       => ':attribute فقط میتواند شامل حروف انگلیسی، اعداد و _ - . باشد.',
+            'slug.regex' => ':attribute فقط میتواند شامل حروف انگلیسی، اعداد و _ - . باشد.',
         ];
     }
 }
