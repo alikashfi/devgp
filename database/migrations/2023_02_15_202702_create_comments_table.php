@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email', 100)->nullable();
             $table->text('message');
             $table->softDeletes();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
