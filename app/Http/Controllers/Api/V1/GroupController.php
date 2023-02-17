@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupRequest;
-use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\DailyView;
 use App\Models\Group;
@@ -41,16 +40,6 @@ class GroupController extends Controller
             $group->increaseView();
 
         return new GroupResource($group->load('tags'));
-    }
-
-    public function update(UpdateGroupRequest $request, Group $group)
-    {
-        //
-    }
-
-    public function destroy(Group $group)
-    {
-        //
     }
 
     private function storeImage($request)

@@ -38,7 +38,7 @@ class Endpoints
      *     @OA\Parameter(
      *         name="tag",
      *         in="query",
-     *         description="slug of a tag",
+     *         description="slug of a tag (accepts multi e.g. ?tag=laravel,react,vue)",
      *         required=false,
      *         @OA\Schema(
      *             type="string",
