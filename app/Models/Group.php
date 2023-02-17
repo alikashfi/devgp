@@ -17,7 +17,7 @@ class Group extends Model
     protected $guarded = [];
     protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at']; // just in case
     protected $filters = ['tag', 'sort', 'search'];
-    protected $appends = ['image'];
+    protected $appends = ['image', 'diffForHumans'];
 
     public function scopeTops($query)
     {
@@ -49,6 +49,11 @@ class Group extends Model
     public function getImageAttribute()
     {
         return asset('images/group/' . ($this->attributes['image'] ?? '../default.jpg'));
+    }
+
+    public function getDiffAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
     public function increaseView()

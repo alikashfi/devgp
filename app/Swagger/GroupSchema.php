@@ -92,4 +92,34 @@ class GroupSchema
      * )
      */
     public $views;
+
+    /**
+     * @OA\Property(
+     *   property="diff",
+     *   type="string",
+     *   description="difference between created_at and now in persian",
+     *   example="3 دقیقه قبل",
+     * )
+     */
+    public $diff;
+
+    /**
+     * @OA\Property(
+     *   property="created_at",
+     *   type="string",
+     *   description=".",
+     *   example="2023-02-17 17:14:11",
+     * )
+     */
+    public $created_at;
+
+    /**
+     * @OA\Property(
+     *   property="updated_at",
+     *   type="string",
+     *   description=".",
+     *   example="2023-03-20 18:15:13",
+     * )
+     */
+    public $updated_at;
 }

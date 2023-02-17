@@ -23,8 +23,9 @@ class GroupResource extends JsonResource
             'support_link' => $this->support_link,
             'members' => $this->members,
             'views' => $this->views,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'diff' => $this->diff,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
     }

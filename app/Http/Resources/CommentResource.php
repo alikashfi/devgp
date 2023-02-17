@@ -17,7 +17,8 @@ class CommentResource extends JsonResource
         return [
             'name' => $this->name,
             'message' => nl2br($this->message),
-            'created_at' => $this->created_at,
+            'diff' => $this->diff,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }

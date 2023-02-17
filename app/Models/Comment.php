@@ -17,6 +17,11 @@ class Comment extends Model
     protected $filters = ['sort'];
     const UPDATED_AT = null;
 
+    public function getDiffAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public function group()
     {
         return $this->belongsTo(Group::class);

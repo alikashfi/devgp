@@ -31,6 +31,16 @@ class CommentSchema
 
     /**
      * @OA\Property(
+     *   property="diff",
+     *   type="string",
+     *   description="difference between created_at and now in persian",
+     *   example="3 دقیقه قبل",
+     * )
+     */
+    public $diff;
+
+    /**
+     * @OA\Property(
      *   property="created_at",
      *   type="string",
      *   description=".",
