@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 30)->unique();
             $table->string('slug', 30)->unique();
-            $table->string('title', 50);
-            $table->string('color', 7);
+            $table->string('title', 50)->nullable();
+            $table->string('color', 7)->default('#FFFFFF');
             $table->text('description')->nullable();
             $table->timestamps();
         });

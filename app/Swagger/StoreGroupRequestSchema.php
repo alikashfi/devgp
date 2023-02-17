@@ -8,7 +8,7 @@ namespace App\Swagger;
  *     required={"name", "link"},
  * )
  */
-class StoreGroupRequest
+class StoreGroupRequestSchema
 {
     /**
      * @OA\Property(

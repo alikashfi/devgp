@@ -7,7 +7,7 @@ namespace App\Swagger;
  *     title="Tag",
  * )
  */
-class TagModel
+class TagSchema
 {
     /**
      * @OA\Property(

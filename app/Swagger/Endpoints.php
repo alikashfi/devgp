@@ -69,7 +69,7 @@ class Endpoints
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/GroupModel"),
+     *                 @OA\Items(ref="#/components/schemas/GroupSchema"),
      *             )
      *         )
      *     ),
@@ -97,7 +97,7 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="group details returned",
-     *         @OA\JsonContent(ref="#/components/schemas/GroupModel")
+     *         @OA\JsonContent(ref="#/components/schemas/GroupSchema")
      *     ),
      *     @OA\Response(
      *         response="404",
@@ -119,13 +119,13 @@ class Endpoints
      *         required=true,
      *         @OA\MediaType(
      *            mediaType="multipart/form-data",
-     *            @OA\Schema(ref="#/components/schemas/StoreGroupRequest"),
+     *            @OA\Schema(ref="#/components/schemas/StoreGroupRequestSchema"),
      *         )
      *     ),
      *     @OA\Response(
      *         response="201",
      *         description="group created successfully and returned as response.",
-     *         @OA\JsonContent(ref="#/components/schemas/GroupModel")
+     *         @OA\JsonContent(ref="#/components/schemas/GroupSchema")
      *     ),
      *     @OA\Response(
      *         response="403",
@@ -170,7 +170,7 @@ class Endpoints
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/GroupModel"),
+     *                 @OA\Items(ref="#/components/schemas/GroupSchema"),
      *             )
      *         )
      *     ),
@@ -198,7 +198,7 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="group details returned",
-     *         @OA\JsonContent(ref="#/components/schemas/TagModel")
+     *         @OA\JsonContent(ref="#/components/schemas/TagSchema")
      *     ),
      *     @OA\Response(
      *         response="404",
@@ -241,13 +241,92 @@ class Endpoints
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/TagModel"),
+     *                 @OA\Items(ref="#/components/schemas/TagSchema"),
      *             )
      *         )
      *     ),
      * )
      */
     public function searchTags()
+    {
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/comments",
+     *     tags={"Comments"},
+     *     summary="get comments of a specific group",
+     *
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page number",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="group",
+     *         in="query",
+     *         description="the slug of the associated group",
+     *         required=true,
+     *         example="laravel",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort",
+     *         in="query",
+     *         description="order by created_at,desc or created_at,asc",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="array of comments returned",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/CommentSchema"),
+     *             )
+     *         )
+     *     ),
+     * )
+     */
+    public function comments()
+    {
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/comments",
+     *     tags={"Comments"},
+     *     summary="create new comment",
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *            mediaType="application/json",
+     *            @OA\Schema(ref="#/components/schemas/StoreCommentRequestSchema"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="201",
+     *         description="comment created successfully and returned as response.",
+     *         @OA\JsonContent(ref="#/components/schemas/CommentSchema")
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="form validation error",
+     *     ),
+     * )
+     */
+    public function storeComment()
     {
     }
 }

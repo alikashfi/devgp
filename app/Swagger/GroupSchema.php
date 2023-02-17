@@ -7,7 +7,7 @@ namespace App\Swagger;
  *     title="Group",
  * )
  */
-class GroupModel
+class GroupSchema
 {
     /**
      * @OA\Property(
@@ -44,7 +44,7 @@ class GroupModel
      *   property="description",
      *   type="string",
      *   example="",
-     *   description=".",
+     *   description="group description text. (show as html. it's secure.)",
      * )
      */
     public $description;
