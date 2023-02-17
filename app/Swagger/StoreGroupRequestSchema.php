@@ -53,6 +53,17 @@ class StoreGroupRequestSchema
 
     /**
      * @OA\Property(
+     *   property="support_link",
+     *   type="string",
+     *   format="uri",
+     *   example="https://t.me/admin-laravel",
+     *   description=".",
+     * )
+     */
+    public $support_link;
+
+    /**
+     * @OA\Property(
      *   property="tags",
      *   description="array of tag slugs e.g. ['slug1', 'slug2'] (don't try adding tag in swagger's &#8221;Try it out&#8221; mode, cuz I couldn't make it work in swagger😐 but it works in api...)",
      *   type="array",

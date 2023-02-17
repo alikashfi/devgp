@@ -62,6 +62,17 @@ class GroupSchema
 
     /**
      * @OA\Property(
+     *   property="support_link",
+     *   type="string",
+     *   format="uri",
+     *   example="https://t.me/admin-laravel",
+     *   description=".",
+     * )
+     */
+    public $support_link;
+
+    /**
+     * @OA\Property(
      *   property="members",
      *   type="number",
      *   format="int64",

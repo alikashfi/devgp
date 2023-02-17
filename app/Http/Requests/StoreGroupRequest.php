@@ -20,6 +20,7 @@ class StoreGroupRequest extends FormRequest
             'slug'        => 'nullable|string|max:30|regex:/^[a-zA-Z0-9\._-]{1,}$/|unique:groups,slug',
             'description' => 'nullable|string|max:10000',
             'link'        => 'required|max:100|url|unique:groups,link',
+            'support_link'        => 'nullable|max:100|url',
             'image'       => 'nullable|image|mimes:png,jpg,jpeg,webp,gif|max:2048',
             'tags'        => 'nullable|array|max:5|exists:tags,slug',
         ];

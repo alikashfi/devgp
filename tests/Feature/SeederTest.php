@@ -22,7 +22,7 @@ class SeederTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->assertDatabaseCount('comments', 20);
-        $this->assertDatabaseCount('tags', 20);
+        $this->assertDatabaseCount('tags', 22);
         $this->assertDatabaseCount('groups', 100);
         $this->assertLessThan(99, Group::whereHas('tags')->count());
     }
