@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
@@ -48,7 +49,7 @@ class Group extends Model
 
     public function getImageAttribute()
     {
-        return asset('images/group/' . ($this->attributes['image'] ?? '../default.jpg'));
+        return asset((Storage::getConfig()['directory'] ?? '/images') . '/group/' . ($this->attributes['image'] ?? '../default.jpg'));
     }
 
     public function getDiffAttribute()

@@ -40,6 +40,16 @@ return [
             'driver' => 'local',
             'root' => public_path(),
             'url' => env('APP_URL'),
+            'directory' => '/',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'test_public' => [
+            'driver' => 'local',
+            'root' => public_path('test_public'),
+            'url' => env('TEST_URL') . '/test_public',
+            'directory' => '/test_public',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -48,6 +58,16 @@ return [
             'driver' => 'local',
             'root' => public_path('images'),
             'url' => env('APP_URL') . '/images',
+            'directory' => '/images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'test_images' => [
+            'driver' => 'local',
+            'root' => public_path('test_images'),
+            'url' => env('TEST_URL') . '/test_images',
+            'directory' => '/test_images',
             'visibility' => 'public',
             'throw' => false,
         ],
