@@ -18,7 +18,7 @@ class Group extends Model
     protected $guarded = [];
     protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at']; // just in case
     protected $filters = ['tag', 'sort', 'search'];
-    protected $appends = ['image', 'diffForHumans'];
+    protected $appends = ['image', 'diff'];
 
     public function scopeTops($query)
     {
@@ -54,7 +54,7 @@ class Group extends Model
 
     public function getDiffAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return $this->created_at?->diffForHumans();
     }
 
     public function increaseView()

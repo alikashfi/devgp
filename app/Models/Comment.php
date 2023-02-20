@@ -14,12 +14,13 @@ class Comment extends Model
     protected $fillable = ['group_id', 'name', 'email', 'message'];
     protected $hidden = ['id', 'group_id', 'email', 'deleted_at']; // just in case
     protected $visible = ['name', 'message', 'created_at'];
+    protected $appends = ['diff'];
     protected $filters = ['sort'];
     const UPDATED_AT = null;
 
     public function getDiffAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return $this->created_at?->diffForHumans();
     }
 
     public function group()
