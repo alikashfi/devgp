@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -83,6 +84,8 @@ class Group extends Resource
             DateTime::make('Created At')->onlyOnDetail(),
 
             DateTime::make('Updated At')->onlyOnDetail(),
+// todo: ->showWhenPeeking() for image and members maybe
+            HasMany::make('Comments')
         ];
     }
 
