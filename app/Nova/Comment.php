@@ -24,7 +24,12 @@ class Comment extends Resource
      *
      * @var string
      */
-    public static $title = 'id'; // todo: fix title \Str::limit...
+    public static $title = 'name'; // todo: fix title \Str::limit...
+
+    public function subtitle()
+    {
+        return  \Str::limit(strip_tags($this->message), 30);
+    }
 
     /**
      * The columns that should be searched.
@@ -56,7 +61,7 @@ class Comment extends Resource
 
             Text::make('message')
                 ->onlyOnIndex()
-                ->displayUsing(fn($message) => \Str::limit(strip_tags($message), 30)),
+                ->displayUsing(fn() => $this->subtitle()),
 
             BelongsTo::make('Group')->dontReorderAssociatables(),
         ];

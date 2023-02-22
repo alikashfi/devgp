@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Image;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
@@ -80,6 +81,39 @@ class Group extends Model
             ->orWhere('slug', 'LIKE', "%$value%")
             ->orWhere('description', 'LIKE', "%$value%")
             ->orWhere('link', 'LIKE', "%$value%");
+    }
+
+    public function deleteImage()
+    {
+        return Storage::delete("group/" . $this->getRawOriginal('image'));
+    }
+
+    protected function storeImage($request)
+    {
+        if ( ! $request->file('image'))
+            return null;
+
+        // naming
+        $name = $this->generateFileName($request->slug);
+
+        // resize and convert to jpg
+        $image = Image::make($request->image)->resize(200, 200)->encode('jpg', 100);
+
+        // store
+        Storage::put("group/{$name}.jpg", $image);
+
+        return "{$name}.jpg";
+    }
+
+    protected function generateFileName($slug)
+    {
+        $name = file_sanitize($slug);
+        $numberedName = $name;
+        $i = 2;
+        while (Storage::exists("group/{$numberedName}.jpg")) {
+            $numberedName = $name . $i++;
+        }
+        return $numberedName;
     }
 
     public function getSlugOptions(): SlugOptions

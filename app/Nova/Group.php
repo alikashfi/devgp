@@ -3,6 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
@@ -34,7 +37,7 @@ class Group extends Resource
      *
      * @var array
      */
-    public static $search = ['id'];
+    public static $search = ['id', 'name', 'slug', 'link', 'support_link', 'description'];
 
     /**
      * Get the fields displayed by the resource.
@@ -45,9 +48,28 @@ class Group extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            Avatar::make('image')
+                ->rules('nullable', 'image', 'max:2048')
+                ->preview(fn($image) => $image)
+                ->thumbnail(fn($image) => $image)
+                ->disableDownload()
+                ->showWhenPeeking()
+                ->store(function () use ($request) {
+                    return ['image' => \App\Models\Group::storeImage($request)];
+                })
+                ->delete(function ($request, $model) {
+                    return ! $model->deleteImage() ?: null;
+                })
+                ->prunable()
+                ->acceptedTypes('image/*'),
 
-            Text::make('Name')->rules('required', 'string', 'max:50'),
+            ID::make()
+                ->sortable()
+                ->showWhenPeeking(),
+
+            Text::make('Name')
+                ->rules('required', 'string', 'max:50')
+                ->showWhenPeeking(),
 
             Text::make('Slug')
                 ->rules('required', 'string', 'max:30', 'regex:/^[a-zA-Z0-9\._-]{1,}$/')
@@ -55,15 +77,19 @@ class Group extends Resource
                 ->updateRules('unique:groups,slug,{{resourceId}}'),
 
             URL::make('Link')
-                ->displayUsing(fn($link) => $request->isResourceIndexRequest() ? 'Link' : $link)
-                ->rules('required', 'url', 'max:100'),
+                ->rules('required', 'url', 'max:100')
+                ->creationRules('unique:groups,link')
+                ->updateRules('unique:groups,link,{{resourceId}}')
+                ->showWhenPeeking()
+                ->displayUsing(fn($link) => $request->isResourceIndexRequest() ? 'Link' : $link),
 
             URL::make('Support Link')
-                ->displayUsing(fn($support_link) => $request->isResourceIndexRequest() ? 'Support Link' : $support_link)
-                ->rules('nullable', 'url', 'max:100'),
+                ->rules('nullable', 'url', 'max:100')
+                ->displayUsing(fn($support_link) => $request->isResourceIndexRequest() ? 'Support Link' : $support_link),
 
             Trix::make('Description')
-                ->rules('nullable', 'string', 'max:10000'),
+                ->rules('nullable', 'string', 'max:10000')
+                ->alwaysShow(),
 
             Number::make('Members')
                 ->rules('nullable', 'integer', 'min:0', 'max:16777215')
@@ -84,8 +110,10 @@ class Group extends Resource
             DateTime::make('Created At')->onlyOnDetail(),
 
             DateTime::make('Updated At')->onlyOnDetail(),
-// todo: ->showWhenPeeking() for image and members maybe
-            HasMany::make('Comments')
+
+            HasMany::make('Comments'),
+
+            BelongsToMany::make('Tags'),
         ];
     }
 

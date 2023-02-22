@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -58,7 +59,11 @@ class Tag extends Resource
 
             Color::make('Color')->rules('nullable', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/', 'size:7'),
 
-            Trix::make('Description')->rules('nullable', 'string', 'max:10000'),
+            Trix::make('Description')
+                ->rules('nullable', 'string', 'max:10000')
+                ->alwaysShow(),
+
+            BelongsToMany::make('Groups'),
 
             DateTime::make('Created At')->onlyOnDetail(),
 

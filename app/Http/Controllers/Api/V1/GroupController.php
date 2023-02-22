@@ -22,9 +22,9 @@ class GroupController extends Controller
         return GroupResource::collection(Group::related($group)->with('tags')->get());
     }
 
-    public function store(StoreGroupRequest $request)
+    public static function store(StoreGroupRequest $request)
     {
-        $image = $this->storeImage($request);
+        $image = Group::storeImage($request);
 
         $group = Group::create(array_merge($request->validatedExcept('tags'), ['image' => $image]));
         $request->tags && $group->tags()->sync($request->tags);
@@ -34,39 +34,11 @@ class GroupController extends Controller
             ->setStatusCode(201);
     }
 
-    public function show(Group $group)
+    public static function show(Group $group)
     {
         if ( ! DailyView::alreadyVisited($group))
             $group->increaseView();
 
         return new GroupResource($group->load('tags'));
-    }
-
-    private function storeImage($request)
-    {
-        if ( ! $request->file('image'))
-            return null;
-
-        // naming
-        $name = $this->generateName($request->slug);
-
-        // resize and convert to jpg
-        $image = Image::make($request->image)->resize(200, 200)->encode('jpg', 100);
-
-        // store
-        Storage::put("group/{$name}.jpg", $image);
-
-        return "{$name}.jpg";
-    }
-
-    private function generateName($slug)
-    {
-        $name = file_sanitize($slug);
-        $numberedName = $name;
-        $i = 2;
-        while (Storage::exists("group/{$numberedName}.jpg")) {
-            $numberedName = $name . $i++;
-        }
-        return $numberedName;
     }
 }
