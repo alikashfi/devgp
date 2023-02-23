@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::factory()->create(['name' => 'admin', 'email' => 'example@gmail.com', 'password' => \Hash::make('1234')]);
+
         $groups = Group::factory(100)->create();
 
         $first_group = tap(Group::first(), function ($group) {
