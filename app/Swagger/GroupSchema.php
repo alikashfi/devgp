@@ -122,4 +122,14 @@ class GroupSchema
      * )
      */
     public $updated_at;
+
+    /**
+     * @OA\Property(
+     *   property="tags",
+     *   type="array",
+     *   @OA\Items(ref="#/components/schemas/TagSchema")
+     *
+     * )
+     */
+    public $tags;
 }

@@ -13,7 +13,7 @@ class TagSchema
      * @OA\Property(
      *   property="name",
      *   type="string",
-     *   example="جاوا اسکریپت or javascript",
+     *   example="فریمورک",
      *   description=".",
      * )
      */
@@ -23,8 +23,8 @@ class TagSchema
      * @OA\Property(
      *   property="title",
      *   type="string",
-     *   description="\<title\> tag for seo",
-     *   example="گروه های برنامه نویسی جاوا اسکریپت",
+     *   description="\<title\> tag for tag page",
+     *   example="گروه های تلگرام درباره فریمورک های برنامه نویسی",
      * )
      */
     public $title;
@@ -33,7 +33,7 @@ class TagSchema
      * @OA\Property(
      *   property="slug",
      *   type="string",
-     *   example="javascript",
+     *   example="framework",
      *   description="english name of the tag for url",
      * )
      */
@@ -43,7 +43,7 @@ class TagSchema
      * @OA\Property(
      *   property="description",
      *   type="string",
-     *   description="for top of tag page, to improve seo. most of times is null btw :))",
+     *   description="for beginning of the tag page, to improve seo. most of times is null btw :))",
      *   example="",
      * )
      */

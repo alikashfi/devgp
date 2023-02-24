@@ -65,12 +65,18 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="array of groups returned",
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/GroupSchema"),
-     *             )
+     *         @OA\JsonContent(
+     *         type="object",
+     *             allOf={
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="data",
+     *                         type="object",
+     *                         ref="#/components/schemas/GroupSchema"
+     *                     ),
+     *                 ),
+     *                 @OA\Schema(ref="#/components/schemas/PaginationSchema"),
+     *             }
      *         )
      *     ),
      * )
@@ -141,7 +147,7 @@ class Endpoints
      * @OA\Get(
      *     path="/groups/{slug}/related",
      *     tags={"Groups"},
-     *     summary="get list of the related groups",
+     *     summary="get the list of related groups",
      *
      *     @OA\Parameter(
      *         name="slug",
@@ -166,12 +172,19 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="array of related groups returned",
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/GroupSchema"),
-     *             )
+     *
+     *         @OA\JsonContent(
+     *         type="object",
+     *             allOf={
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="data",
+     *                         type="object",
+     *                         ref="#/components/schemas/GroupSchema"
+     *                     ),
+     *                 ),
+     *                 @OA\Schema(ref="#/components/schemas/PaginationSchema"),
+     *             }
      *         )
      *     ),
      * )
@@ -288,12 +301,26 @@ class Endpoints
      *     @OA\Response(
      *         response="200",
      *         description="array of comments returned",
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/CommentSchema"),
-     *             )
+     *         @OA\JsonContent(
+     *         type="object",
+     *             allOf={
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="data",
+     *                         type="object",
+     *                         ref="#/components/schemas/CommentSchema"
+     *                     ),
+     *                 ),
+     *                 @OA\Schema(ref="#/components/schemas/PaginationSchema"),
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="total",
+     *                         type="number",
+     *                         description="comments count",
+     *                         example=20
+     *                     )
+     *                 )
+     *             }
      *         )
      *     ),
      * )
