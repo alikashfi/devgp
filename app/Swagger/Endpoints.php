@@ -24,7 +24,7 @@ class Endpoints
      * @OA\Get(
      *     path="/groups",
      *     tags={"Groups"},
-     *     summary="get list of the groups",
+     *     summary="get the list of groups",
      *
      *     @OA\Parameter(
      *         name="page",
@@ -182,39 +182,9 @@ class Endpoints
 
     /**
      * @OA\Get(
-     *     path="/tags/{slug}",
-     *     tags={"Tags"},
-     *     summary="get a tag by slug",
-     *
-     *     @OA\Parameter(
-     *         name="slug",
-     *         in="path",
-     *         description="The slug of tag",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="200",
-     *         description="group details returned",
-     *         @OA\JsonContent(ref="#/components/schemas/TagSchema")
-     *     ),
-     *     @OA\Response(
-     *         response="404",
-     *         description="tag not found",
-     *     ),
-     * )
-     */
-    public function singleTag()
-    {
-    }
-
-    /**
-     * @OA\Get(
      *     path="/tags",
      *     tags={"Tags"},
-     *     summary="search between tags (use in create-group form)",
+     *     summary="get the list of tags",
      *
      *     @OA\Parameter(
      *         name="search",
@@ -253,9 +223,39 @@ class Endpoints
 
     /**
      * @OA\Get(
+     *     path="/tags/{slug}",
+     *     tags={"Tags"},
+     *     summary="get a tag by slug",
+     *
+     *     @OA\Parameter(
+     *         name="slug",
+     *         in="path",
+     *         description="The slug of tag",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="group details returned",
+     *         @OA\JsonContent(ref="#/components/schemas/TagSchema")
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="tag not found",
+     *     ),
+     * )
+     */
+    public function singleTag()
+    {
+    }
+
+    /**
+     * @OA\Get(
      *     path="/comments",
      *     tags={"Comments"},
-     *     summary="get comments of a specific group",
+     *     summary="get the list of comments for a specific group",
      *
      *     @OA\Parameter(
      *         name="page",

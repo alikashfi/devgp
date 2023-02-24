@@ -64,9 +64,11 @@ class StoreGroupRequestSchema
 
     /**
      * @OA\Property(
+     *   property="tags[]",
      *   property="tags",
-     *   description="array of tag slugs e.g. ['slug1', 'slug2'] (don't try adding tag in swagger's &#8221;Try it out&#8221; mode, cuz I couldn't make it work in swagger😐 but it works in api...)",
+     *   description="array of tag slugs (max=5) e.g. `tags[]=tag1 tags[]=tag2`.<br>*but due to [l5-swagger bug](https://github.com/DarkaOnLine/L5-Swagger/issues/354), if you gonna &#8221;Try it out&#8221; here, leave it empty.*",
      *   type="array",
+     *   collectionFormat="multi",
      *   @OA\Items(type="string"),
      * )
      */
