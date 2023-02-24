@@ -24,3 +24,4 @@ _ide_helper_models.php
 /public/images
 /public/test_images
 /nova
+/public/vendor/nova
