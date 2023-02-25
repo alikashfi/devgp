@@ -54,12 +54,8 @@ class Group extends Resource
                 ->thumbnail(fn($image) => $image)
                 ->disableDownload()
                 ->showWhenPeeking()
-                ->store(function () use ($request) {
-                    return ['image' => \App\Models\Group::storeImage($request)];
-                })
-                ->delete(function ($request, $model) {
-                    return ! $model->deleteImage() ?: null;
-                })
+                ->store(fn() => ['image' => \App\Models\Group::storeImage($request)])
+                ->delete(fn($r, $model, $d, $path) => basename($path) !== 'default.jpg' ? $model->deleteImage($path) : null)
                 ->prunable()
                 ->acceptedTypes('image/*'),
 

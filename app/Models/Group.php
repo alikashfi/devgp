@@ -83,9 +83,10 @@ class Group extends Model
             ->orWhere('link', 'LIKE', "%$value%");
     }
 
-    public function deleteImage()
+    public function deleteImage($path = null)
     {
-        return Storage::delete("group/" . $this->getRawOriginal('image'));
+        $image = $path ? basename($path) : $this->getRawOriginal('image');
+        return Storage::delete("group/$image");
     }
 
     protected function storeImage($request)

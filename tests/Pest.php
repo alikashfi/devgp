@@ -42,7 +42,16 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+require_once 'test_helpers.php';
+
+/** helper for get auto complete. */
+function u($test): Tests\TestCase
 {
-    // ..
+    return $test;
+}
+
+/** helper for get auto complete. */
+function t(): ?Tests\TestCase
+{
+    return TestSuite::getInstance()->test;
 }
