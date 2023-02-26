@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Resources\GroupResource;
-use App\Models\DailyView;
+use App\Models\DailyIp;
 use App\Models\Group;
 use Illuminate\Support\Facades\Storage;
 use Image;
@@ -36,7 +36,7 @@ class GroupController extends Controller
 
     public static function show(Group $group)
     {
-        if ( ! DailyView::alreadyVisited($group))
+        if ( ! DailyIp::alreadyVisited($group))
             $group->increaseView();
 
         return new GroupResource($group->load('tags'));

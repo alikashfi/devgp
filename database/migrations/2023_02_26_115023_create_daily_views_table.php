@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('daily_views', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->ipAddress('ip');
+            $table->unsignedSmallInteger('views');
+            $table->date('date');
         });
     }
 

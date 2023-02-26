@@ -48,6 +48,11 @@ class Group extends Model
         return $this->hasMany(DailyView::class);
     }
 
+    public function dailyIps()
+    {
+        return $this->hasMany(DailyIp::class);
+    }
+
     public function getImageAttribute()
     {
         return asset((Storage::getConfig()['directory'] ?? '/images') . '/group/' . ($this->attributes['image'] ?? '../default.jpg'));
@@ -61,7 +66,7 @@ class Group extends Model
     public function increaseView()
     {
         $this->update(['views' => DB::raw('views + 1'), 'daily_views' => DB::raw('daily_views + 1')]);
-        $this->dailyViews()->create(['ip' => request()->ip()]);
+        $this->dailyIps()->create(['ip' => request()->ip()]);
     }
 
     // Filter groups by "tag" url parameter
