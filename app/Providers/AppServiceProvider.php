@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
+use App;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
         JsonResource::withoutWrapping();
 
+        App::macro('isTest', fn() => false);
         $this->handleTestEnvironment();
     }
 
@@ -47,13 +47,16 @@ class AppServiceProvider extends ServiceProvider
     {
         $url = 'https://' . request()->getHttpHost();
 
-        if ($url === env('TEST_URL')) { // $url example: https://test.site.com
-            config([
-                'database.default' => 'test_mysql',
-                'filesystems.default' => 'test_images',
-                'app.asset_url' => $url,
-                'l5-swagger.defaults.constants.L5_SWAGGER_CONST_HOST' => $url . '/api/v1'
-            ]);
-        }
+        if ($url !== env('TEST_URL')) // $url example: https://test.site.com
+            return;
+
+        config([
+            'database.default' => 'test_mysql',
+            'filesystems.default' => 'test_images',
+            'app.asset_url' => $url,
+            'l5-swagger.defaults.constants.L5_SWAGGER_CONST_HOST' => $url . '/api/v1'
+        ]);
+
+        App::macro('isTest', fn() => true);
     }
 }
