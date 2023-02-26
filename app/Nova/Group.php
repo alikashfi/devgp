@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Metrics\DailyViews;
+use App\Nova\Metrics\ViewsPerDay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Fields\Avatar;
@@ -123,7 +124,7 @@ class Group extends Resource
     public function cards(NovaRequest $request)
     {
         return [
-            (new DailyViews)->width('full')
+            (new ViewsPerDay)->width('full')
         ];
     }
 

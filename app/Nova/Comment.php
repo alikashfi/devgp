@@ -24,7 +24,7 @@ class Comment extends Resource
      *
      * @var string
      */
-    public static $title = 'name'; // todo: fix title \Str::limit...
+    public static $title = 'name';
 
     public function subtitle()
     {

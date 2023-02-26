@@ -2,11 +2,11 @@
 
 namespace App\Nova\Metrics;
 
-use App\Models\DailyView;
+use App\Models\Group;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Trend;
 
-class DailyViews extends Trend
+class GroupsPerDay extends Trend
 {
     /**
      * Calculate the value of the metric.
@@ -16,7 +16,7 @@ class DailyViews extends Trend
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->daysumByDays($request, DailyView::class, 'views', 'date');
+        return $this->countByDays($request, Group::class)->showSumValue();
     }
 
     /**
@@ -50,6 +50,6 @@ class DailyViews extends Trend
      */
     public function uriKey()
     {
-        return 'daily-views';
+        return 'daily-groups';
     }
 }

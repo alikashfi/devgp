@@ -15,6 +15,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function boot()
     {
+        app()->setLocale('en');
         parent::boot();
     }
 
