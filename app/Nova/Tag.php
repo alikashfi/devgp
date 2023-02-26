@@ -13,6 +13,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Tag extends Resource
 {
+    public static $priority = 2;
+
     /**
      * The model the resource corresponds to.
      *

@@ -20,6 +20,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Group extends Resource
 {
+    public static $priority = 1;
+
     /**
      * The model the resource corresponds to.
      *

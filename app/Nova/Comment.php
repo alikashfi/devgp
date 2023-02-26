@@ -12,6 +12,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Comment extends Resource
 {
+    public static $priority = 4;
+
     /**
      * The model the resource corresponds to.
      *

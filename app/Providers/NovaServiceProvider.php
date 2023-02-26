@@ -67,14 +67,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [];
     }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
-        //
+        Nova::sortResourcesBy(function ($resource) {
+            return $resource::$priority ?? 99999;
+        });
     }
 }

@@ -12,6 +12,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
 {
+    public static $priority = 3;
+
     /**
      * The model the resource corresponds to.
      *
