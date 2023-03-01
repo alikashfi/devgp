@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 /**
  * @OA\OpenApi(
  *  @OA\Info(
- *      title="Returns Services API",
+ *      title="Api Documentation",
  *      version="v1",
  *      description="API endpoints of devgp project.",
  *  )

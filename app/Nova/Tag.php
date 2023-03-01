@@ -15,6 +15,8 @@ class Tag extends Resource
 {
     public static $priority = 2;
 
+    public static $tableStyle = 'tight';
+
     /**
      * The model the resource corresponds to.
      *

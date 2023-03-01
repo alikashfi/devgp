@@ -14,6 +14,8 @@ class Comment extends Resource
 {
     public static $priority = 4;
 
+    public static $tableStyle = 'tight';
+
     /**
      * The model the resource corresponds to.
      *

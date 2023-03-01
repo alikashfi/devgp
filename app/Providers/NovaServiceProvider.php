@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Menu\MenuGroup;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -17,6 +20,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         app()->setLocale('en');
         parent::boot();
+        Nova::mainMenu(fn($request, $menu) => $menu->append(MenuItem::externalLink('Api Documentation', route('l5-swagger.default.api'))));
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 //     Artisan::call('migrate', [
 //         '--force' => true,
 //     ]);
-//     dump('migrated');
+//     dump('migrate done.');
 // });
 
 // Route::get('/fresh', function () {
@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 //         '--force' => true,
 //     ]);
 //     dump('migrate:fresh done.');
-// })->middleware('test');
+// });
 
 // Route::get('/seed', function () {
 //     Artisan::call('db:seed', [
 //         '--force' => true,
 //     ]);
-//     dump('migrate:fresh --seed done.');
+//     dump('db:seed done.');
 // });
