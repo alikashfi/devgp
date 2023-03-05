@@ -14,7 +14,7 @@ class GroupController extends Controller
 {
     public function index()
     {
-        return GroupResource::collection(Group::filter()->with('tags')->simplePaginate(10));
+        return GroupResource::collection(Group::filter()->with('tags')->paginate(10));
     }
 
     public function related(Group $group)

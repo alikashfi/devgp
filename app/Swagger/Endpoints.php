@@ -76,6 +76,14 @@ class Endpoints
      *                     ),
      *                 ),
      *                 @OA\Schema(ref="#/components/schemas/PaginationSchema"),
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                         property="total",
+     *                         type="number",
+     *                         description="comments count",
+     *                         example=110
+     *                     )
+     *                 )
      *             }
      *         )
      *     ),

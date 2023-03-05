@@ -22,4 +22,8 @@
     # force HTTPS
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    <Files "index.php">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+    </Files>
 </IfModule>
