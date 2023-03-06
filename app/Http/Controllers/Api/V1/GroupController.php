@@ -12,6 +12,11 @@ use Image;
 
 class GroupController extends Controller
 {
+    public function __construct()
+    {
+        app()->setLocale('fa');
+    }
+
     public function index()
     {
         return GroupResource::collection(Group::filter()->with('tags')->paginate(10));

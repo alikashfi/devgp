@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+Route::get(env('SITEMAP'), IndexController::class)->name('sitemap');
 
 // cuz project deployed on a sharing host. these routes gonna to help me handle migrations :D
 
