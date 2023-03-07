@@ -65,6 +65,8 @@ class Group extends Model
 
     public function increaseView()
     {
+        if (DailyIp::alreadyVisited($this))
+            return;
         $this->update(['views' => DB::raw('views + 1'), 'daily_views' => DB::raw('daily_views + 1')]);
         $this->dailyIps()->create(['ip' => request()->ip()]);
     }

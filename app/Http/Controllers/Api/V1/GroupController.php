@@ -41,9 +41,7 @@ class GroupController extends Controller
 
     public static function show(Group $group)
     {
-        if ( ! DailyIp::alreadyVisited($group))
-            $group->increaseView();
-
+        $group->increaseView();
         return new GroupResource($group->load('tags'));
     }
 }

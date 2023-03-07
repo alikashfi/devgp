@@ -16,7 +16,7 @@ class TodayViews extends Value
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->sum($request, Group::class, 'daily_views');
+        return $this->result(Group::sum('daily_views'));
     }
 
     /**
@@ -26,13 +26,7 @@ class TodayViews extends Value
      */
     public function ranges()
     {
-        return [
-            'TODAY' => __('Today'),
-            'YESTERDAY' => 'Yesterday',
-            30 => __('30 Days'),
-            60 => __('60 Days'),
-            365 => __('365 Days'),
-        ];
+        return [];
     }
 
     /**

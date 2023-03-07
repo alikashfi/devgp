@@ -15,7 +15,8 @@ class GroupResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
+            'title' => "گروه تلگرام $this->name",
+            'name' => "گروه $this->name",
             'image' => $this->image,
             'slug' => $this->slug,
             'description' => nl2br($this->description),

@@ -20,7 +20,7 @@ class GroupApiTest extends TestCase
 
         $response = $this->getJsonRoute('api.v1.groups.show', $group->slug)->json();
 
-        $this->assertEquals($group->name, $response['name']);
+        $this->assertEquals("گروه $group->name", $response['name']);
     }
 
     /** @test */
@@ -113,7 +113,7 @@ class GroupApiTest extends TestCase
 
         $response = $this->getJsonRoute('api.v1.groups.related', $first->slug)->json();
 
-        $this->assertEquals([$second->name], array_column($response, 'name'));
+        $this->assertEquals(["گروه $second->name"], array_column($response, 'name'));
     }
 
     /** @test */
@@ -126,7 +126,7 @@ class GroupApiTest extends TestCase
 
         $response = $this->postJsonRoute('api.v1.groups.store', data: $group)->assertCreated()->json();
 
-        $this->assertEquals($group['name'], $response['name']);
+        $this->assertEquals("گروه {$group['name']}", $response['name']);
         $this->assertDatabaseHas('groups', $group);
     }
 
