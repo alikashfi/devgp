@@ -14,9 +14,11 @@ class GroupResource extends JsonResource
      */
     public function toArray($request)
     {
+        $type = $this->getType();
+
         return [
-            'title' => "گروه تلگرام $this->name",
-            'name' => "گروه $this->name",
+            'title' => "$type تلگرام $this->name",
+            'name' => "$type $this->name",
             'image' => $this->image,
             'slug' => $this->slug,
             'description' => nl2br($this->description),
@@ -29,5 +31,18 @@ class GroupResource extends JsonResource
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        $tags = $this->whenLoaded('tags')->pluck('slug')->toArray();
+
+        $type = in_array('channel', $tags) ? 'کانال' : 'گروه'; // todo: refactor this.
+        $type = in_array('bot', $tags) ? 'ربات' : $type;
+
+        return $type;
     }
 }

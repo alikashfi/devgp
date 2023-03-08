@@ -19,12 +19,12 @@ class GroupController extends Controller
 
     public function index()
     {
-        return GroupResource::collection(Group::filter()->with('tags')->paginate(10));
+        return GroupResource::collection(Group::filter()->paginate(10));
     }
 
     public function related(Group $group)
     {
-        return GroupResource::collection(Group::related($group)->with('tags')->get());
+        return GroupResource::collection(Group::related($group)->get());
     }
 
     public static function store(StoreGroupRequest $request)
@@ -42,6 +42,6 @@ class GroupController extends Controller
     public static function show(Group $group)
     {
         $group->increaseView();
-        return new GroupResource($group->load('tags'));
+        return new GroupResource($group);
     }
 }

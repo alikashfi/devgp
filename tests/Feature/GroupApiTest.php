@@ -167,4 +167,23 @@ class GroupApiTest extends TestCase
 
         $this->postJsonRoute('api.v1.groups.store', data: $group)->assertJsonValidationErrors(array_keys($group));
     }
+
+    /** @test */
+    public function group_name_and_title_prefix_based_on_tags()
+    {
+        create(Tag::class);
+        create(Tag::class, ['slug' => 'bot']);
+        $group = create(Group::class);
+        $group->tags()->sync(Tag::pluck('id'));
+
+        $response = $this->get(route('api.v1.groups.show', $group->slug));
+        $this->assertEquals("ربات تلگرام {$group->name}", $response['title']);
+
+        $tag = create(Tag::class, ['slug' => 'channel']);
+        $group = create(Group::class);
+        $group->tags()->sync($tag->id);
+
+        $response = $this->get(route('api.v1.groups.show', $group->slug));
+        $this->assertEquals("کانال {$group->name}", $response['name']);
+    }
 }

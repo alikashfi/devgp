@@ -20,6 +20,7 @@ class Group extends Model
     protected $hidden = ['id', 'user_id', 'daily_views', 'deleted_at']; // just in case
     protected $filters = ['tag', 'sort', 'search'];
     protected $appends = ['image', 'diff'];
+    protected $with = ['tags'];
 
     public function scopeTops($query)
     {
